@@ -29,7 +29,6 @@
         </form>
         <div id="image"></div>
         <button type="button" id="delete">Delete</button>
-        <button type="button" id="yes">yes</button>
     </div>
 
     <script>
@@ -43,13 +42,6 @@
                 image.src = `http://localhost:8080/api/photo/${id}`;
                 document.querySelector('#image').appendChild(image);
             })
-        }
-
-        document.getElementById('yes').onclick = function () {
-            const person = {
-                id: "639b3f4d68060f737eba2ba4",
-            }
-            window.localStorage.setItem('user', JSON.stringify(person))
         }
 
         // remove upload
@@ -80,21 +72,12 @@
             let response = await fetch('http://localhost:8080/api/uploadphoto', {
                 method: 'POST',
                 body: new FormData(formElem)
-            }).then(res => {
-                res.json();
-                console.log(res)
+            }).then(res => res.json()).then(data => {
                 const person = {
-                    id: "2",
+                    id: data,
                 }
                 window.localStorage.setItem('user', JSON.stringify(person))
             })
-                .then(data => {
-                    console.log(data)
-                    const person = {
-                        id: "2",
-                    }
-                    window.localStorage.setItem('user', JSON.stringify(person))
-                })
         };
     </script>
 </body>

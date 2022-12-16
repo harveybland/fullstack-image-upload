@@ -25,13 +25,15 @@ core.app.post(
       var img = fs.readFileSync(req.file.path);
       var encode_image = img.toString('base64');
 
-      schemas.imagesModel.create({
+      const result = await schemas.imagesModel.create({
         contentType: req.file.mimetype,
         image: Buffer.from(encode_image, 'base64'),
       });
-      const images = await schemas.imagesModel.find();
-      const imgArray = images.map((element) => element._id);
-      res.status(200).json(imgArray);
+
+      let string = JSON.stringify(result);
+      let objectV = JSON.parse(string);
+
+      res.status(200).json(objectV['_id']);
     } catch (error) {
       res.status(400).json(error);
     }
