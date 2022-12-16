@@ -55,7 +55,6 @@ core.app.get('/api/photo/:id', (req, res) => {
 
       var buffer = Buffer.from(new Uint8Array(result.image.buffer));
       res.contentType('image/jpeg');
-      // res.send(buffer);
       res.status(200).send(buffer);
     }
   );
@@ -73,5 +72,16 @@ core.app.get('/api/myphoto/:uid', async (req, res) => {
     res.status(200).json(image[0]);
   } catch {
     res.status(404).json('error');
+  }
+});
+
+core.app.delete('/api/myphoto/:uid', async (req, res) => {
+  try {
+    const id = req.params.uid;
+    await schemas.imagesModel.deleteOne({ _id: id });
+    const photo = await schemas.imagesModel.find();
+    res.status(200).json('Success');
+  } catch {
+    res.status('404').json('error');
   }
 });

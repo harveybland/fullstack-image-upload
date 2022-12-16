@@ -1,0 +1,4 @@
+{
+  "appService.defaultWebAppToDeploy": "/subscriptions/03ada9a3-edca-4192-95be-f25a201a09ed/AppServices/subscriptions/03ada9a3-edca-4192-95be-f25a201a09ed/resourceGroups/mainResource/providers/Microsoft.Web/sites/local-app",
+  "appService.deploySubpath": "server"
+}

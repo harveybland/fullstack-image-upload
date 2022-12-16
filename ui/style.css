@@ -74,3 +74,21 @@ button[type='submit'] {
   object-fit: cover;
   border-radius: 50%;
 }
+
+.upload-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+/* mypage */
+.upload {
+  position: relative;
+}
+
+#remove {
+  position: absolute;
+  right: 10px;
+  bottom: 35%;
+}
