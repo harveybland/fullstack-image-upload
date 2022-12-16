@@ -4,8 +4,9 @@
   box-sizing: border-box;
 }
 
-body {
-  background-color: #f2f2f2;
+.body {
+  max-width: 1000px;
+  margin: 20px auto;
 }
 
 button {
@@ -15,7 +16,7 @@ button {
 }
 
 header {
-  background-color: #fff;
+  background-color: #eee;
   width: 100%;
   padding: 0 20px;
   display: flex;
@@ -142,4 +143,23 @@ button[type='submit'] {
   padding: 10px;
   color: #eee;
   border-radius: 4px;
+}
+
+/* leader */
+.leaderboard {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.leaderboard div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.leaderboard div h2 {
+  background-color: #eee;
+  padding: 15px 20px;
+  width: 100%;
+  text-align: center;
 }

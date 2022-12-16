@@ -21,12 +21,20 @@
         </nav>
     </header>
 
-    <div>
-        <div id="images"></div>
+    <div class="body">
+        <div>
+            <div id="images"></div>
+        </div>
     </div>
 </body>
 
 <script>
+    const user = {
+        id: null,
+        played: false
+    }
+    window.localStorage.setItem('user', JSON.stringify(user))
+
     // get images
     fetch('http://localhost:8080/api/photos').then(res => res.json()).then(data => {
         console.log(data)
