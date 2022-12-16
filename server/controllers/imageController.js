@@ -47,8 +47,15 @@ core.app.post(
 // Get photos
 core.app.get('/api/photos', async (req, res) => {
   const images = await schemas.imagesModel.find();
-  const imgArray = images.map((element) => element._id);
-  res.status(200).json(imgArray);
+  const help = images.map((item) => {
+    let model = {
+      id: item._id,
+      rating: item.rating,
+    };
+    return model;
+  });
+
+  res.status(200).json(help);
 });
 
 core.app.get('/api/allphotos', async (req, resp) => {
@@ -93,6 +100,7 @@ core.app.get('/api/myphoto/:uid', async (req, res) => {
   }
 });
 
+// delete photo
 core.app.delete('/api/myphoto/:uid', async (req, res) => {
   try {
     const id = req.params.uid;

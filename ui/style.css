@@ -2,6 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
 }
 
 .body {
@@ -30,13 +31,23 @@ header a {
   text-decoration: none;
   color: #000;
   padding: 20px 10px;
+  font-size: 1.5rem;
+  font-weight: 400;
+  font-family: 'Roboto', sans-serif;
+}
+
+header nav a {
+  margin: 0 2px;
+  text-decoration: none;
+  color: #000;
+  padding: 20px 10px;
   font-size: 1.1rem;
   font-weight: 400;
   font-family: 'Roboto', sans-serif;
 }
 
-header a:hover {
-  background-color: red;
+header nav a:hover {
+  background-color: #999;
   color: #fff;
 }
 
@@ -74,8 +85,6 @@ button[type='submit'] {
   gap: 20px;
   align-items: center;
   justify-content: center;
-  max-width: 1200px;
-  margin: 0 auto;
   padding: 40px 20px;
 }
 
@@ -91,6 +100,16 @@ button[type='submit'] {
   flex-direction: column;
 }
 
+.list-row {
+  flex-direction: row !important;
+  width: 100% !important;
+}
+
+.list-row p {
+  font-size: 2rem;
+  padding: 20px;
+}
+
 .list img {
   width: 200px;
   height: 200px;
@@ -99,11 +118,25 @@ button[type='submit'] {
   border-radius: 50%;
 }
 
+.list p {
+  padding: 12px 0;
+}
+
+.list span {
+  margin-right: 5px;
+}
+
 .upload-wrapper {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
+}
+
+#input-1 {
+  width: 30px;
+  height: 30px;
+  margin-right: 4px;
 }
 
 /* mypage */
@@ -162,4 +195,21 @@ button[type='submit'] {
   padding: 15px 20px;
   width: 100%;
   text-align: center;
+}
+
+/* button */
+.btn {
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.btn-green {
+  background-color: #4caf50;
+  color: #fff;
+}
+
+@media screen and (max-width: 575px) {
+  .leaderboard {
+    grid-template-columns: 1fr;
+  }
 }

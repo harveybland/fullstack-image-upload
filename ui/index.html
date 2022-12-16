@@ -13,9 +13,8 @@
 
 <body>
     <header>
-        <h1>Rate My Mug</h1>
+        <h1><a href="/ui/index.html">Rate My Mug</a></h1>
         <nav>
-            <a href="/ui/index.html">Home</a>
             <a href="/ui/mypage.html">My Page</a>
             <a href="/ui/leaderboard.html">Leaderboard</a>
         </nav>
@@ -29,25 +28,28 @@
 </body>
 
 <script>
-    const user = {
-        id: null,
-        played: false
-    }
-    window.localStorage.setItem('user', JSON.stringify(user))
+    // const user = {
+    //     id: null,
+    //     played: false
+    // }
+    // window.localStorage.setItem('user', JSON.stringify(user))
 
     // get images
     fetch('http://localhost:8080/api/photos').then(res => res.json()).then(data => {
-        console.log(data)
         const html = data.map((array) => {
             return `
             <div class="list">
                 <div>
-                    <img src="http://localhost:8080/api/photo/${array}" />
+                    <img src="http://localhost:8080/api/photo/${array.id}" />
                 </div>
                 <div>
-                    <p>Current Rating: </p>
-                    <p>Rate Me</p>
-                    <input type="text" />
+                    <p>Current Rating: ${array.rating}</p>
+                    <div>
+                        <span>
+                            <input type="text" id="input-1" min="0" max="10" /> / 10
+                        </span>
+                        <button type="button" onclick="submit()"" class="btn btn-green">Submit</button>
+                    </div>
                 </div>
             </div>
       `
@@ -56,6 +58,15 @@
             .querySelector('#images')
             .insertAdjacentHTML('afterbegin', html);
     });
+
+    function submit() {
+        const user = {
+            played: true
+        }
+        window.localStorage.setItem('user', JSON.stringify(user))
+    }
+
+
 </script>
 
 </html>

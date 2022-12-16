@@ -26,6 +26,7 @@
         <div class="leaderboard">
             <div>
                 <h2>Mug of the week</h2>
+                <div id="images"></div>
             </div>
             <div>
                 <h2>Mug of the month</h2>
@@ -33,7 +34,23 @@
         </div>
     </div>
     <script>
-
+        fetch('http://localhost:8080/api/photos').then(res => res.json()).then(data => {
+            const html = data.map((array) => {
+                return `
+            <div class="list list-row">
+                <div>
+                    <img src="http://localhost:8080/api/photo/${array.id}" />
+                </div>
+                <div>
+                    <p>${array.rating}</p>
+                </div>
+            </div>
+      `
+            }).join('');
+            document
+                .querySelector('#images')
+                .insertAdjacentHTML('afterbegin', html);
+        });
     </script>
 </body>
 
