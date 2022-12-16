@@ -18,18 +18,23 @@
 
     <div>
         <form id="formElem">
-            <input type="file" name="myImage" id="imgInp" accept="image/*" />
-            <img id="img" src="#" alt="your image" />
-            <button type="button" id="remove">remove</button>
+            <div class="upload-wrapper">
+                <div class="upload">
+                    <input type="file" name="myImage" id="imgInp" accept="image/*" />
+                    <button type="button" id="remove">x</button>
+                </div>
+                <img id="img" src="#" alt="your image" />
+            </div>
             <input type="text" name="fullName" />
             <input type="submit" value="Upload an Image" />
         </form>
         <div id="image"></div>
+        <button id="delete">Delete</button>
     </div>
 
     <script>
         const person = {
-            id: "639b3fa8cc4d89d5ece6a907",
+            id: "639b3f4d68060f737eba2ba4",
         }
         window.localStorage.setItem('user', JSON.stringify(person))
         var a = localStorage.getItem("user");
@@ -41,16 +46,26 @@
             document.querySelector('#image').appendChild(image);
         })
 
+        // remove upload
         document.getElementById('remove').onclick = function () {
             document.getElementById("imgInp").value = "";
             document.getElementById('img').removeAttribute('src');
         }
 
+        // show upload
         imgInp.onchange = evt => {
             const [file] = imgInp.files
             if (file) {
                 img.src = URL.createObjectURL(file)
             }
+        }
+
+        // delete
+        document.getElementById('delete').onclick = function () {
+            fetch(`http://localhost:8080/api/myphoto/${b.id}`, {
+                method: 'DELETE'
+            }).then(res => res.json())
+                .then(res => window.location.reload())
         }
 
         formElem.onsubmit = async (e) => {
