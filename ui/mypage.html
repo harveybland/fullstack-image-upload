@@ -16,35 +16,41 @@
         <a href="/ui/mypage.html">My Page</a>
     </header>
 
-    <div>
+    <div class="mypage">
         <form id="formElem">
             <div class="upload-wrapper">
                 <div class="upload">
                     <input type="file" name="myImage" id="imgInp" accept="image/*" />
                     <button type="button" id="remove">x</button>
                 </div>
-                <img id="img" src="#" alt="your image" />
+                <img id="img" src="#" />
             </div>
-            <input type="text" name="fullName" />
             <input type="submit" value="Upload an Image" />
         </form>
         <div id="image"></div>
-        <button id="delete">Delete</button>
+        <button type="button" id="delete">Delete</button>
+        <button type="button" id="yes">yes</button>
     </div>
 
     <script>
-        const person = {
-            id: "639b3f4d68060f737eba2ba4",
-        }
-        window.localStorage.setItem('user', JSON.stringify(person))
         var a = localStorage.getItem("user");
         let b = JSON.parse(a)
-        fetch(`http://localhost:8080/api/myphoto/${b.id}`).then(res => res.json()).then(data => {
-            const id = data._id;
-            const image = document.createElement('img');
-            image.src = `http://localhost:8080/api/photo/${id}`;
-            document.querySelector('#image').appendChild(image);
-        })
+        // get image
+        if (!!b) {
+            fetch(`http://localhost:8080/api/myphoto/${b.id}`).then(res => res.json()).then(data => {
+                const id = data._id;
+                const image = document.createElement('img');
+                image.src = `http://localhost:8080/api/photo/${id}`;
+                document.querySelector('#image').appendChild(image);
+            })
+        }
+
+        document.getElementById('yes').onclick = function () {
+            const person = {
+                id: "639b3f4d68060f737eba2ba4",
+            }
+            window.localStorage.setItem('user', JSON.stringify(person))
+        }
 
         // remove upload
         document.getElementById('remove').onclick = function () {
@@ -65,19 +71,30 @@
             fetch(`http://localhost:8080/api/myphoto/${b.id}`, {
                 method: 'DELETE'
             }).then(res => res.json())
-                .then(res => window.location.reload())
+                .then(data => window.location.reload())
         }
 
+        // submit
         formElem.onsubmit = async (e) => {
             e.preventDefault();
-
             let response = await fetch('http://localhost:8080/api/uploadphoto', {
                 method: 'POST',
                 body: new FormData(formElem)
-            });
-
-            let result = await response.json();
-            window.location.reload();
+            }).then(res => {
+                res.json();
+                console.log(res)
+                const person = {
+                    id: "2",
+                }
+                window.localStorage.setItem('user', JSON.stringify(person))
+            })
+                .then(data => {
+                    console.log(data)
+                    const person = {
+                        id: "2",
+                    }
+                    window.localStorage.setItem('user', JSON.stringify(person))
+                })
         };
     </script>
 </body>

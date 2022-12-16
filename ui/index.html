@@ -19,6 +19,7 @@
 </body>
 
 <script>
+    // get images
     fetch('http://localhost:8080/api/photos').then(res => res.json()).then(data => {
         const html = data.map((array) => {
             return `
