@@ -17,6 +17,7 @@ var storage = multer.diskStorage({
 
 var upload = multer({ storage: storage });
 
+// Post a photo
 core.app.post(
   '/api/uploadphoto',
   upload.single('myImage'),
@@ -28,10 +29,13 @@ core.app.post(
       const result = await schemas.imagesModel.create({
         contentType: req.file.mimetype,
         image: Buffer.from(encode_image, 'base64'),
+        rating: 0,
       });
 
       let string = JSON.stringify(result);
       let objectV = JSON.parse(string);
+
+      console.log(objectV['_id']);
 
       res.status(200).json(objectV['_id']);
     } catch (error) {
@@ -40,12 +44,23 @@ core.app.post(
   }
 );
 
+// Get photos
 core.app.get('/api/photos', async (req, res) => {
   const images = await schemas.imagesModel.find();
   const imgArray = images.map((element) => element._id);
   res.status(200).json(imgArray);
 });
 
+core.app.get('/api/allphotos', async (req, resp) => {
+  try {
+    const images = await schemas.imagesModel.find();
+    resp.status(200).json(images[0]);
+  } catch {
+    resp.status('404').json('error');
+  }
+});
+
+// Add the photo
 core.app.get('/api/photo/:id', (req, res) => {
   var filename = req.params.id;
   const image = schemas.imagesModel.findOne(
@@ -62,6 +77,7 @@ core.app.get('/api/photo/:id', (req, res) => {
   );
 });
 
+// Get my photo
 core.app.get('/api/myphoto/:uid', async (req, res) => {
   try {
     const image = await schemas.imagesModel.aggregate([

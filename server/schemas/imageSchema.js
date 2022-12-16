@@ -2,9 +2,9 @@ const { Schema } = require('mongoose');
 const core = require('../core');
 
 const imagesSchema = new core.Schema({
-  fullName: String,
   contentType: String,
   image: Buffer,
+  rating: Number,
 });
 
 const imagesModel = core.mongoose.model('images', imagesSchema);

@@ -8,21 +8,41 @@ body {
   background-color: #f2f2f2;
 }
 
+button {
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+}
+
 header {
   background-color: #fff;
-  padding: 20px;
   width: 100%;
+  padding: 0 20px;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: center;
+  min-height: 60px;
 }
 
 header a {
-  margin: 0 8px;
+  margin: 0 2px;
   text-decoration: none;
   color: #000;
-  font-size: 1.3rem;
-  font-weight: 500;
+  padding: 20px 10px;
+  font-size: 1.1rem;
+  font-weight: 400;
+  font-family: 'Roboto', sans-serif;
+}
+
+header a:hover {
+  background-color: red;
+  color: #fff;
+}
+
+header h1 {
+  font-weight: 400;
+  font-size: 1.7rem;
+  font-family: 'Roboto', sans-serif;
 }
 
 input[type='file'],
@@ -59,12 +79,15 @@ button[type='submit'] {
 }
 
 .list {
-  border: 1px solid #000;
+  border: 1px solid #ddd;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   background-color: #fff;
   padding: 20px;
   border-radius: 5px;
+  min-width: 300px;
+  flex-direction: column;
 }
 
 .list img {
@@ -100,9 +123,23 @@ button[type='submit'] {
   bottom: 35%;
 }
 
+#img {
+  width: 300px;
+  height: 300px;
+  display: block;
+  object-fit: cover;
+}
+
 #image img {
   width: 300px;
   height: 300px;
   display: block;
   object-fit: cover;
+}
+
+#delete {
+  background-color: red;
+  padding: 10px;
+  color: #eee;
+  border-radius: 4px;
 }

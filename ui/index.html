@@ -5,12 +5,20 @@
     <meta charset="UTF-8">
     <title>Home Page</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap"
+        rel="stylesheet">
 </head>
 
 <body>
     <header>
-        <a href="/ui/index.html">Home</a>
-        <a href="/ui/mypage.html">My Page</a>
+        <h1>Rate My Mug</h1>
+        <nav>
+            <a href="/ui/index.html">Home</a>
+            <a href="/ui/mypage.html">My Page</a>
+            <a href="/ui/leaderboard.html">Leaderboard</a>
+        </nav>
     </header>
 
     <div>
@@ -21,6 +29,7 @@
 <script>
     // get images
     fetch('http://localhost:8080/api/photos').then(res => res.json()).then(data => {
+        console.log(data)
         const html = data.map((array) => {
             return `
             <div class="list">
@@ -28,8 +37,9 @@
                     <img src="http://localhost:8080/api/photo/${array}" />
                 </div>
                 <div>
-                    <h2>Title</h2>
-                    <p>Text</p>
+                    <p>Current Rating: </p>
+                    <p>Rate Me</p>
+                    <input type="text" />
                 </div>
             </div>
       `
