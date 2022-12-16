@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Home Page</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <a href="/ui/index.html">Home</a>
+        <a href="/ui/mypage.html">My Page</a>
+    </header>
+
+    <div>
+        <div id="images"></div>
+    </div>
+</body>
+
+<script>
+    fetch('http://localhost:8080/api/photos').then(res => res.json()).then(data => {
+        const html = data.map((array) => {
+            return `
+            <div class="list">
+                <div>
+                    <img src="http://localhost:8080/api/photo/${array}" />
+                </div>
+                <div>
+                    <h2>Title</h2>
+                    <p>Text</p>
+                </div>
+            </div>
+      `
+        }).join('');
+        document
+            .querySelector('#images')
+            .insertAdjacentHTML('afterbegin', html);
+    });
+</script>
+
+</html>

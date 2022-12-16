@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>MyPage</title>
+</head>
+
+<body>
+
+    <header>
+        <a href="/ui/index.html">Home</a>
+        <a href="/ui/mypage.html">My Page</a>
+    </header>
+
+    <div>
+        <form id="formElem">
+            <input type="file" name="myImage" id="imgInp" accept="image/*" />
+            <img id="img" src="#" alt="your image" />
+            <button type="button" id="remove">remove</button>
+            <input type="text" name="fullName" />
+            <input type="submit" value="Upload an Image" />
+        </form>
+        <div id="image"></div>
+    </div>
+
+    <script>
+        const person = {
+            id: "639b3fa8cc4d89d5ece6a907",
+        }
+        window.localStorage.setItem('user', JSON.stringify(person))
+        var a = localStorage.getItem("user");
+        let b = JSON.parse(a)
+        fetch(`http://localhost:8080/api/myphoto/${b.id}`).then(res => res.json()).then(data => {
+            const id = data._id;
+            const image = document.createElement('img');
+            image.src = `http://localhost:8080/api/photo/${id}`;
+            document.querySelector('#image').appendChild(image);
+        })
+
+        document.getElementById('remove').onclick = function () {
+            document.getElementById("imgInp").value = "";
+            document.getElementById('img').removeAttribute('src');
+        }
+
+        imgInp.onchange = evt => {
+            const [file] = imgInp.files
+            if (file) {
+                img.src = URL.createObjectURL(file)
+            }
+        }
+
+        formElem.onsubmit = async (e) => {
+            e.preventDefault();
+
+            let response = await fetch('http://localhost:8080/api/uploadphoto', {
+                method: 'POST',
+                body: new FormData(formElem)
+            });
+
+            let result = await response.json();
+            window.location.reload();
+        };
+    </script>
+</body>
+
+</html>
