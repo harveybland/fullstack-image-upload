@@ -107,7 +107,7 @@ button[type='submit'] {
 
 .list-row p {
   font-size: 2rem;
-  padding: 20px;
+  padding: 20px !important;
 }
 
 .list img {

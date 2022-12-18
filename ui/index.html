@@ -48,7 +48,7 @@
                         <span>
                             <input type="text" id="input-1" min="0" max="10" /> / 10
                         </span>
-                        <button type="button" onclick="submit()"" class="btn btn-green">Submit</button>
+                        <button type="button" onclick="submit(${array.id})"" class="btn btn-green">Submit</button>
                     </div>
                 </div>
             </div>
@@ -59,13 +59,15 @@
             .insertAdjacentHTML('afterbegin', html);
     });
 
-    function submit() {
+    function submit(id) {
+        fetch(`http://localhost:8080/api/rate/${id}`, {
+            method: 'PUT'
+        })
         const user = {
             played: true
         }
         window.localStorage.setItem('user', JSON.stringify(user))
     }
-
 
 </script>
 

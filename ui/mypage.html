@@ -15,9 +15,8 @@
 
 <body>
     <header>
-        <h1>Rate My Mug</h1>
+        <h1><a href="/ui/index.html">Rate My Mug</a></h1>
         <nav>
-            <a href="/ui/index.html">Home</a>
             <a href="/ui/mypage.html">My Page</a>
             <a href="/ui/leaderboard.html">Leaderboard</a>
         </nav>
@@ -32,7 +31,7 @@
                     </div>
                     <img id="img" src="#" />
                 </div>
-                <input type="submit" value="Upload an Image" />
+                <button type="submit" class="btn" value="Upload an Image">Submit</button>
             </form>
             <div id="image"></div>
             <button type="button" id="delete">Delete</button>
@@ -45,24 +44,24 @@
         document.getElementById('delete').style.display = 'none';
 
         // get image
-        if (b.id != null) {
-            fetch(`http://localhost:8080/api/myphoto/${b.id}`).then(res => res.json()).then(data => {
-                const id = data._id;
-                const image = document.createElement('img');
-                image.src = `http://localhost:8080/api/photo/${id}`;
-                document.querySelector('#image').appendChild(image);
-            })
+        // if (b.id != null) {
+        //     fetch(`http://localhost:8080/api/myphoto/${b.id}`).then(res => res.json()).then(data => {
+        //         const id = data._id;
+        //         const image = document.createElement('img');
+        //         image.src = `http://localhost:8080/api/photo/${id}`;
+        //         document.querySelector('#image').appendChild(image);
+        //     })
 
-            document.getElementById('delete').style.display = 'block';
+        //     document.getElementById('delete').style.display = 'block';
 
-            // delete
-            document.getElementById('delete').onclick = function () {
-                fetch(`http://localhost:8080/api/myphoto/${b.id}`, {
-                    method: 'DELETE'
-                }).then(res => res.json())
-                    .then(data => window.location.reload())
-            }
-        }
+        //     // delete
+        //     document.getElementById('delete').onclick = function () {
+        //         fetch(`http://localhost:8080/api/myphoto/${b.id}`, {
+        //             method: 'DELETE'
+        //         }).then(res => res.json())
+        //             .then(data => window.location.reload())
+        //     }
+        // }
 
         // remove upload
         document.getElementById('remove').onclick = function () {
@@ -79,18 +78,24 @@
         }
 
         // submit
-        formElem.onsubmit = async (e) => {
+        const form = document.getElementById('formElem');
+
+        form.addEventListener('submit', async function (e) {
             e.preventDefault();
             let response = await fetch('http://localhost:8080/api/uploadphoto', {
                 method: 'POST',
-                body: new FormData(formElem)
-            }).then(res => res.json()).then(data => {
-                const user = {
-                    id: data,
-                }
-                window.localStorage.setItem('user', JSON.stringify(user))
+                body: new FormData(formElem),
             })
-        };
+                .then((res) => res.json())
+                .then((data) => {
+                    console.log(data);
+                    const user = {
+                        id: data,
+                        played: false,
+                    };
+                    window.localStorage.setItem('user', JSON.stringify(user));
+                });
+        });
     </script>
 </body>
 

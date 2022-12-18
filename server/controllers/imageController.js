@@ -35,7 +35,7 @@ core.app.post(
       let string = JSON.stringify(result);
       let objectV = JSON.parse(string);
 
-      console.log(objectV['_id']);
+      // console.log(objectV['_id']);
 
       res.status(200).json(objectV['_id']);
     } catch (error) {
@@ -97,6 +97,18 @@ core.app.get('/api/myphoto/:uid', async (req, res) => {
     res.status(200).json(image[0]);
   } catch {
     res.status(404).json('error');
+  }
+});
+
+core.app.put('/api/rate/:uid', async (req, res) => {
+  try {
+    const id = req.params.uid;
+    let rate = await schemas.imagesModel.findOne({ _id: id });
+    (rate.rating = req.body.rating), rate.save();
+    const images = await schemas.imagesModel.find();
+    res.status(200).json(images);
+  } catch {
+    res.status('404').json('error');
   }
 });
 
