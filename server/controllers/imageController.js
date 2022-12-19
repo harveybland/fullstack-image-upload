@@ -103,12 +103,13 @@ core.app.get('/api/myphoto/:uid', async (req, res) => {
 core.app.put('/api/rate/:uid', async (req, res) => {
   try {
     const id = req.params.uid;
+    console.log(req.body);
     let rate = await schemas.imagesModel.findOne({ _id: id });
     (rate.rating = req.body.rating), rate.save();
     const images = await schemas.imagesModel.find();
     res.status(200).json(images);
   } catch {
-    res.status('404').json('error');
+    res.status(404).json('error');
   }
 });
 
