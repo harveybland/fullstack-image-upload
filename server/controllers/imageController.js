@@ -104,7 +104,7 @@ core.app.put('/api/rate/:uid', async (req, res) => {
   try {
     const id = req.params.uid;
     let rate = await schemas.imagesModel.findOne({ _id: id });
-    (rate.rating = req.body.rating), rate.save();
+    rate.rating + req.body.rating, rate.save();
     const images = await schemas.imagesModel.find();
     res.status(200).json(images);
   } catch {
@@ -120,6 +120,6 @@ core.app.delete('/api/myphoto/:uid', async (req, res) => {
     const photo = await schemas.imagesModel.find();
     res.status(200).json('Success');
   } catch {
-    res.status('404').json('error');
+    res.status(404).json('error');
   }
 });

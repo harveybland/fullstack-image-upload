@@ -10,31 +10,58 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap"
         rel="stylesheet">
+    <style>
+        /* leader */
+        .leaderboard .list-row {
+            width: 250px;
+        }
+
+        .leaderboard h2 {
+            background-color: #eee;
+            padding: 15px 20px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .list-row {
+            flex-direction: row !important;
+            width: 100%;
+        }
+
+        .list-row p {
+            font-size: 2rem;
+            padding: 20px;
+        }
+    </style>
     <title>LeaderBoard</title>
 </head>
 
 <body>
+
     <header>
         <h1>
-            <a href="/ui/index.html">Home</a>
+            <a href="/ui/index.html">Mugshots</a>
         </h1>
         <nav>
-            <a href="/ui/mypage.html">My Page</a>
+            <a href="/ui/mypage.html">My Mug</a>
+            <button id="myBtn">Rules</button>
             <a href="/ui/leaderboard.html">Leaderboard</a>
         </nav>
     </header>
-    <div class="body">
-        <div class="leaderboard">
-            <div>
-                <h2>Mug of the week</h2>
-                <div id="images"></div>
-            </div>
-            <div>
-                <h2>Mug of the month</h2>
-            </div>
+
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p>Some text in the Modal..</p>
         </div>
     </div>
 
+    <div class="body">
+        <div class="leaderboard">
+            <h2>Mug of the week</h2>
+            <div id="images"></div>
+        </div>
+    </div>
 
     <script>
         fetch('http://localhost:8080/api/photos').then(res => res.json()).then(data => {
@@ -53,8 +80,14 @@
             document
                 .querySelector('#images')
                 .insertAdjacentHTML('afterbegin', html);
+
+            const list = document.querySelectorAll('.list');
+            list[0].style.backgroundColor = '#FFD700';
+            list[1].style.backgroundColor = '#C0C0C0';
+            list[2].style.backgroundColor = '#CD7F32';
         });
     </script>
+    <script src="app.js"></script>
 </body>
 
 </html>
