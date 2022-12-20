@@ -13,7 +13,9 @@
 
 <body>
     <header>
-        <h1><a href="/ui/index.html">Rate My Mug</a></h1>
+        <h1>
+            <a href="/ui/index.html">Home</a>
+        </h1>
         <nav>
             <a href="/ui/mypage.html">My Page</a>
             <a href="/ui/leaderboard.html">Leaderboard</a>
@@ -28,11 +30,9 @@
 </body>
 
 <script>
-    // const user = {
-    //     id: null,
-    //     played: false
-    // }
-    // window.localStorage.setItem('user', JSON.stringify(user))
+    // const played = false;
+    // window.localStorage.setItem('played', played);
+    let game = window.localStorage.getItem('played');
 
     // get images
     fetch('http://localhost:8080/api/photos').then(res => res.json()).then(data => {
@@ -48,7 +48,7 @@
                         <span>
                             <input type="text" id="input-1" min="0" max="10" /> / 10
                         </span>
-                        <button type="button" onclick="submit(${array.id})"" class="btn btn-green">Submit</button>
+                        <button type="button" id="submit" onclick="submitRate('${array.id}')" class="btn btn-green">Submit</button>
                     </div>
                 </div>
             </div>
@@ -57,16 +57,35 @@
         document
             .querySelector('#images')
             .insertAdjacentHTML('afterbegin', html);
+        submitRate('0');
+        if (game == 'true') {
+            let button = document.querySelectorAll('#submit');
+            for (let i = 0; i < button.length; i++) {
+                button[i].style.pointerEvents = "none"
+                button[i].style.backgroundColor = "#cccccc"
+                button[i].style.color = "#666666;"
+            }
+        }
     });
 
-    function submit(id) {
-        fetch(`http://localhost:8080/api/rate/${id}`, {
-            method: 'PUT'
-        })
-        const user = {
-            played: true
+    function submitRate(id) {
+        if (id != '0') {
+            const input = document.querySelectorAll('#input-1');
+            for (let i = 0; i < input.length; i++) {
+                console.log(input.value)
+                // console.log(input.value[i])
+            }
+
+            // fetch(`http://localhost:8080/api/rate/${id}`, {
+            //     method: 'PUT',
+            //     headers: { 'Content-Type': 'application/json' },
+            //     body: JSON.stringify({ rating: parseInt(input.value) }),
+            // }).then(response => response.json())
+            //     .then(data => console.log(data));
+
+            // const played = true;
+            // window.localStorage.setItem('played', played)
         }
-        window.localStorage.setItem('user', JSON.stringify(user))
     }
 
 </script>
