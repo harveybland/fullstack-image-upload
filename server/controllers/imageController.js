@@ -104,7 +104,10 @@ core.app.put('/api/rate/:uid', async (req, res) => {
   try {
     const id = req.params.uid;
     let rate = await schemas.imagesModel.findOne({ _id: id });
-    rate.rating + req.body.rating, rate.save();
+    console.log(rate.rating);
+    console.log(req.body);
+    let newRate = rate.rating + req.body.rating;
+    (rate.rating = newRate), rate.save();
     const images = await schemas.imagesModel.find();
     res.status(200).json(images);
   } catch {

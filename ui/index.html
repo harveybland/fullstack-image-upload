@@ -15,6 +15,10 @@
             height: 30px;
             margin-right: 4px;
         }
+
+        .list {
+            min-height: 380px;
+        }
     </style>
 </head>
 
@@ -33,14 +37,17 @@
     <div id="myModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <p>Some text in the Modal..</p>
+            <p>How To Play</p>
+            <ul>
+                <li>Allowed to upload 1 mug</li>
+                <li>Rate 1 mug a day</li>
+                <li>Rating must be between 1 and 10</li>
+            </ul>
         </div>
     </div>
 
     <div class="body">
-        <div>
-            <div id="images"></div>
-        </div>
+        <div id="images"></div>
     </div>
 </body>
 
@@ -74,9 +81,11 @@
             .querySelector('#images')
             .insertAdjacentHTML('afterbegin', html);
 
-        // disable users photo
-        let test = document.getElementById(`${user}`).childNodes[3];
-        test.style.display = 'none';
+        // disable users mug
+        let usersMug = document.getElementById(`${user}`);
+        usersMug.style.justifyContent = 'flex-start';
+        let submit = usersMug.childNodes[3];
+        submit.childNodes[3].style.display = 'none';
 
         // loads javascript after data
         submitRate('0');
@@ -89,23 +98,20 @@
     });
 
     function submitRate(id) {
-        if (id != '0') {
-            const input = document.getElementById('input');
-            console.log(input.value)
-            // for (let i = 0; i < input.length; i++) {
-            //     console.log(input.value)
-            //     // console.log(input.value[i])
-            // }
-
-            // fetch(`http://localhost:8080/api/rate/${id}`, {
-            //     method: 'PUT',
-            //     headers: { 'Content-Type': 'application/json' },
-            //     body: JSON.stringify({ rating: parseInt(input.value) }),
-            // }).then(response => response.json())
-            //     .then(data => console.log(data));
-
+        const div = document.getElementById(`${id}`);
+        let input = div.getElementsByTagName('INPUT');
+        if (id != '0' && input[0].value > 0 && input[0].value < 10) {
+            fetch(`http://localhost:8080/api/rate/${id}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ rating: parseInt(input[0].value) }),
+            }).then(response => response.json())
+                .then(data => console.log(data));
+            window.location.reload()
             // const played = true;
             // window.localStorage.setItem('played', played)
+        } else {
+            alert('Incorrect input data')
         }
     }
 

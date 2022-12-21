@@ -21,7 +21,7 @@
             padding: 0 20px;
             flex-wrap: wrap;
             display: flex;
-            align-items: center;
+            align-items: flex-end;
             justify-content: center;
         }
 
@@ -66,9 +66,13 @@
         #preview h2 {
             width: 100%;
             text-align: center;
-            background-color: #eee;
+            background-color: #bbb;
             font-size: 1rem;
             padding: 5px 0;
+        }
+
+        .btn {
+            margin: 20px 0;
         }
     </style>
     <title>MyPage</title>
@@ -89,7 +93,12 @@
     <div id="myModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <p>Some text in the Modal..</p>
+            <p>How To Play</p>
+            <ul>
+                <li>Allowed to upload 1 mug</li>
+                <li>Rate 1 mug a day</li>
+                <li>Rating must be between 1 and 10</li>
+            </ul>
         </div>
     </div>
 
