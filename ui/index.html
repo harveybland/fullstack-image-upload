@@ -3,7 +3,8 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Home Page</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,17 +21,18 @@
             min-height: 380px;
         }
     </style>
+    <title>Mugshots</title>
 </head>
 
 <body>
     <header>
         <h1>
-            <a href="/ui/index.html">Mugshots</a>
+            <a href="ui/index.html">Mugshots</a>
         </h1>
         <nav>
-            <a href="/ui/mypage.html">My Mug</a>
+            <a href="ui/mypage.html">My Mug</a>
             <button id="myBtn">Rules</button>
-            <a href="/ui/leaderboard.html">Leaderboard</a>
+            <a href="ui/leaderboard.html">Leaderboard</a>
         </nav>
     </header>
 
@@ -47,8 +49,11 @@
     </div>
 
     <div class="body">
-        <div id="images"></div>
+        <div id="text">You have 0 ratings left today</div>
+        <div id="mugshots"></div>
     </div>
+
+
 </body>
 
 <script>
@@ -78,18 +83,21 @@
       `
         }).join('');
         document
-            .querySelector('#images')
+            .querySelector('#mugshots')
             .insertAdjacentHTML('afterbegin', html);
 
         // disable users mug
         let usersMug = document.getElementById(`${user}`);
-        usersMug.style.justifyContent = 'flex-start';
-        let submit = usersMug.childNodes[3];
-        submit.childNodes[3].style.display = 'none';
+        if (!!usersMug) {
+            usersMug.style.justifyContent = 'flex-start';
+            let submit = usersMug.childNodes[3];
+            submit.childNodes[3].style.display = 'none';
+        }
 
         // loads javascript after data
         submitRate('0');
         if (game == 'true') {
+            document.getElementById('text').style.display = 'flex';
             let button = document.querySelectorAll('#submit');
             for (let i = 0; i < button.length; i++) {
                 button[i].classList.add('btn-disabled')
@@ -98,20 +106,23 @@
     });
 
     function submitRate(id) {
-        const div = document.getElementById(`${id}`);
-        let input = div.getElementsByTagName('INPUT');
-        if (id != '0' && input[0].value > 0 && input[0].value < 10) {
-            fetch(`http://localhost:8080/api/rate/${id}`, {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ rating: parseInt(input[0].value) }),
-            }).then(response => response.json())
-                .then(data => console.log(data));
-            window.location.reload()
-            // const played = true;
-            // window.localStorage.setItem('played', played)
-        } else {
-            alert('Incorrect input data')
+        if (id != '0') {
+            const div = document.getElementById(`${id}`);
+            let input = div.getElementsByTagName('INPUT');
+            if (input[0].value > 0 && input[0].value < 11) {
+                fetch(`http://localhost:8080/api/rate/${id}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ rating: parseInt(input[0].value) }),
+                }).then(response => response.json())
+                    .then(data => {
+                        window.location.reload()
+                        const played = true;
+                        window.localStorage.setItem('played', played)
+                    });
+            } else {
+                alert('Incorrect input data')
+            }
         }
     }
 

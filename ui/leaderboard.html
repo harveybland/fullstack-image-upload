@@ -12,10 +12,6 @@
         rel="stylesheet">
     <style>
         /* leader */
-        .leaderboard .list-row {
-            width: 250px;
-        }
-
         .leaderboard h2 {
             background-color: #eee;
             padding: 15px 20px;
@@ -25,7 +21,6 @@
 
         .list-row {
             flex-direction: row !important;
-            width: 100%;
         }
 
         .list-row p {
@@ -40,12 +35,12 @@
 
     <header>
         <h1>
-            <a href="/ui/index.html">Mugshots</a>
+            <a href="ui/index.html">Mugshots</a>
         </h1>
         <nav>
-            <a href="/ui/mypage.html">My Mug</a>
+            <a href="ui/mypage.html">My Mug</a>
             <button id="myBtn">Rules</button>
-            <a href="/ui/leaderboard.html">Leaderboard</a>
+            <a href="ui/leaderboard.html">Leaderboard</a>
         </nav>
     </header>
 
@@ -64,7 +59,7 @@
     <div class="body">
         <div class="leaderboard">
             <h2>Mug of the week</h2>
-            <div id="images"></div>
+            <div id="mugshots"></div>
         </div>
     </div>
 
@@ -83,7 +78,7 @@
       `
             }).join('');
             document
-                .querySelector('#images')
+                .querySelector('#mugshots')
                 .insertAdjacentHTML('afterbegin', html);
 
             const list = document.querySelectorAll('.list');
