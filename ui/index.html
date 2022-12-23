@@ -59,6 +59,7 @@
 <script>
     // const played = false;
     // window.localStorage.setItem('played', played);
+    let date = window.localStorage.getItem('date');
     let game = window.localStorage.getItem('played');
     let user = window.localStorage.getItem('userId');
 
@@ -96,6 +97,10 @@
 
         // loads javascript after data
         submitRate('0');
+        if (date != new Date()) {
+            window.localStorage.removeItem('played')
+            window.localStorage.removeItem('datePlayed')
+        }
         if (game == 'true') {
             document.getElementById('text').style.display = 'flex';
             let button = document.querySelectorAll('#submit');
@@ -118,7 +123,9 @@
                     .then(data => {
                         window.location.reload()
                         const played = true;
+                        let date = new Date();
                         window.localStorage.setItem('played', played)
+                        window.localStorage.setItem('datePlayed', date)
                     });
             } else {
                 alert('Incorrect input data')
