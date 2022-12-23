@@ -27,12 +27,12 @@
 <body>
     <header>
         <h1>
-            <a href="ui/index.html">Mugshots</a>
+            <a href="https://mugshots.netlify.app/index.html">Mugshots</a>
         </h1>
         <nav>
-            <a href="ui/mypage.html">My Mug</a>
+            <a href="https://mugshots.netlify.app/mypage.html">My Mug</a>
             <button id="myBtn">Rules</button>
-            <a href="ui/leaderboard.html">Leaderboard</a>
+            <a href="https://mugshots.netlify.app/leaderboard.html">Leaderboard</a>
         </nav>
     </header>
 
@@ -59,17 +59,17 @@
 <script>
     // const played = false;
     // window.localStorage.setItem('played', played);
-    let date = window.localStorage.getItem('date');
+    let date = window.localStorage.getItem('datePlayed');
     let game = window.localStorage.getItem('played');
     let user = window.localStorage.getItem('userId');
 
     // get images
-    fetch('http://localhost:8080/api/photos').then(res => res.json()).then(data => {
-        const html = data.map((array) => {
+    fetch('https://local-app.azurewebsites.net/api/photos').then(res => res.json()).then(data => {
+        const html = data.sort((a, b) => a < b ? 1 : -1).map((array) => {
             return `
             <div class="list" id="${array.id}">
                 <div>
-                    <img src="http://localhost:8080/api/photo/${array.id}" />
+                    <img src="https://local-app.azurewebsites.net/api/photo/${array.id}" />
                 </div>
                 <div>
                     <p>Current Rating: ${array.rating}</p>
@@ -97,7 +97,7 @@
 
         // loads javascript after data
         submitRate('0');
-        if (date != new Date()) {
+        if (date != new Date().setHours(0, 0, 0, 0)) {
             window.localStorage.removeItem('played')
             window.localStorage.removeItem('datePlayed')
         }
@@ -115,7 +115,7 @@
             const div = document.getElementById(`${id}`);
             let input = div.getElementsByTagName('INPUT');
             if (input[0].value > 0 && input[0].value < 11) {
-                fetch(`http://localhost:8080/api/rate/${id}`, {
+                fetch(`https://localhost:8080/api/rate/${id}`, {
                     method: 'PUT',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ rating: parseInt(input[0].value) }),
@@ -123,7 +123,7 @@
                     .then(data => {
                         window.location.reload()
                         const played = true;
-                        let date = new Date();
+                        let date = new Date().setHours(0, 0, 0, 0);
                         window.localStorage.setItem('played', played)
                         window.localStorage.setItem('datePlayed', date)
                     });

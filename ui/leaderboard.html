@@ -21,6 +21,7 @@
 
         .list-row {
             flex-direction: row !important;
+            justify-content: space-evenly;
         }
 
         .list-row p {
@@ -35,12 +36,12 @@
 
     <header>
         <h1>
-            <a href="ui/index.html">Mugshots</a>
+            <a href="https://mugshots.netlify.app/index.html">Mugshots</a>
         </h1>
         <nav>
-            <a href="ui/mypage.html">My Mug</a>
+            <a href="https://mugshots.netlify.app/mypage.html">My Mug</a>
             <button id="myBtn">Rules</button>
-            <a href="ui/leaderboard.html">Leaderboard</a>
+            <a href="https://mugshots.netlify.app/leaderboard.html">Leaderboard</a>
         </nav>
     </header>
 
@@ -64,12 +65,12 @@
     </div>
 
     <script>
-        fetch('http://localhost:8080/api/photos').then(res => res.json()).then(data => {
+        fetch('https://local-app.azurewebsites.net/api/photos').then(res => res.json()).then(data => {
             const html = data.sort((a, b) => (a.rating < b.rating ? 1 : -1)).map((array) => {
                 return `
             <div class="list list-row">
                 <div>
-                    <img src="http://localhost:8080/api/photo/${array.id}" />
+                    <img src="https://local-app.azurewebsites.net/api/photo/${array.id}" />
                 </div>
                 <div>
                     <p>${array.rating}</p>
@@ -83,8 +84,11 @@
 
             const list = document.querySelectorAll('.list');
             list[0].style.backgroundColor = '#FFD700';
+            list[0].style.width = '100%';
             list[1].style.backgroundColor = '#C0C0C0';
+            list[1].style.width = '48%';
             list[2].style.backgroundColor = '#CD7F32';
+            list[2].style.width = '48%';
         });
     </script>
     <script src="app.js"></script>

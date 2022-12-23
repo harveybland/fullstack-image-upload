@@ -29,6 +29,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            flex-wrap: wrap;
             gap: 10px;
         }
 
@@ -81,12 +82,12 @@
 <body>
     <header>
         <h1>
-            <a href="ui/index.html">Mugshots</a>
+            <a href="https://mugshots.netlify.app/index.html">Mugshots</a>
         </h1>
         <nav>
-            <a href="ui/mypage.html">My Mug</a>
+            <a href="https://mugshots.netlify.app/mypage.html">My Mug</a>
             <button id="myBtn">Rules</button>
-            <a href="ui/leaderboard.html">Leaderboard</a>
+            <a href="https://mugshots.netlify.app/leaderboard.html">Leaderboard</a>
         </nav>
     </header>
 
@@ -129,10 +130,10 @@
         document.getElementById('delete').style.display = 'none';
         // get image
         if (!!userId) {
-            fetch(`http://localhost:8080/api/myphoto/${userId}`).then(res => res.json()).then(data => {
+            fetch(`https://local-app.azurewebsites.net/api/myphoto/${userId}`).then(res => res.json()).then(data => {
                 const id = data._id;
                 const image = document.createElement('img');
-                image.src = `http://localhost:8080/api/photo/${id}`;
+                image.src = `https://local-app.azurewebsites.net/api/photo/${id}`;
                 document.querySelector('#image').appendChild(image);
             })
 
@@ -141,7 +142,7 @@
             // delete
             document.getElementById('delete').onclick = function () {
                 window.localStorage.removeItem('userId');
-                fetch(`http://localhost:8080/api/myphoto/${userId}`, {
+                fetch(`https://local-app.azurewebsites.net/api/myphoto/${userId}`, {
                     method: 'DELETE'
                 }).then(res => res.json())
                     .then(data => window.location.reload());
@@ -174,10 +175,10 @@
 
         form.addEventListener('submit', async function (e) {
             e.preventDefault();
-            fetch(`http://localhost:8080/api/myphoto/${userId}`, {
+            fetch(`https://local-app.azurewebsites.net/api/myphoto/${userId}`, {
                 method: 'DELETE'
             })
-            let response = await fetch('http://localhost:8080/api/uploadphoto', {
+            let response = await fetch('https://local-app.azurewebsites.net/api/uploadphoto', {
                 method: 'POST',
                 body: new FormData(formElem),
             })
