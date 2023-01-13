@@ -30,6 +30,7 @@ core.app.post(
         contentType: req.file.mimetype,
         image: Buffer.from(encode_image, 'base64'),
         rating: 0,
+        policeNum: 0,
       });
 
       let string = JSON.stringify(result);
@@ -51,6 +52,7 @@ core.app.get('/api/photos', async (req, res) => {
     let model = {
       id: item._id,
       rating: item.rating,
+      policeNum: item.policeNum,
     };
     return model;
   });
