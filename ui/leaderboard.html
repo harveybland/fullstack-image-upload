@@ -13,20 +13,30 @@
     <style>
         /* leader */
         .leaderboard h2 {
-            background-color: #eee;
             padding: 15px 20px;
             width: 100%;
             text-align: center;
         }
 
+        .list {
+            background-color: #eee;
+            border: none;
+            box-shadow: none;
+        }
+
         .list-row {
-            flex-direction: row !important;
+            flex-direction: column !important;
             justify-content: space-evenly;
         }
 
         .list-row p {
             font-size: 2rem;
             padding: 20px;
+            background: #fff;
+            padding: 50px 80px;
+            border-radius: 10px;
+            margin-top: 10px;
+            box-shadow: 0 4px 5px #00000021;
         }
     </style>
     <title>LeaderBoard</title>
@@ -48,10 +58,10 @@
     <div id="myModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <p>How To Play</p>
+            <p>Rules</p>
             <ul>
-                <li>Allowed to upload 1 mug</li>
-                <li>Rate 1 mug a day</li>
+                <li>Allowed to upload 1 mugshot</li>
+                <li>Rate 1 mugshot a day</li>
                 <li>Rating must be between 1 and 10</li>
             </ul>
         </div>
@@ -59,7 +69,7 @@
 
     <div class="body">
         <div class="leaderboard">
-            <h2>Mug of the week</h2>
+            <h2>Mugshots Leaderboard</h2>
             <div id="mugshots"></div>
         </div>
     </div>
@@ -83,12 +93,13 @@
                 .insertAdjacentHTML('afterbegin', html);
 
             const list = document.querySelectorAll('.list');
-            list[0].style.backgroundColor = '#FFD700';
             list[0].style.width = '100%';
-            list[1].style.backgroundColor = '#C0C0C0';
             list[1].style.width = '48%';
-            list[2].style.backgroundColor = '#CD7F32';
             list[2].style.width = '48%';
+            const p = document.querySelectorAll('.list p');
+            p[0].style.backgroundColor = '#FFD700';
+            p[1].style.backgroundColor = '#C0C0C0';
+            p[2].style.backgroundColor = '#CD7F32';
         });
     </script>
     <script src="app.js"></script>

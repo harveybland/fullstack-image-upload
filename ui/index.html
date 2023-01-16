@@ -39,10 +39,10 @@
     <div id="myModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <p>How To Play</p>
+            <p>Rules</p>
             <ul>
-                <li>Allowed to upload 1 mug</li>
-                <li>Rate 1 mug a day</li>
+                <li>Allowed to upload 1 mugshot</li>
+                <li>Rate 1 mugshot a day</li>
                 <li>Rating must be between 1 and 10</li>
             </ul>
         </div>
@@ -55,7 +55,6 @@
 
 
 </body>
-
 <script>
     // const played = false;
     // window.localStorage.setItem('played', played);
@@ -71,9 +70,15 @@
                 <div>
                     <img src="https://local-app.azurewebsites.net/api/photo/${array.id}" />
                 </div>
+                <div class="mugboard">
+                    <div>
+                        <p>POLICE DEPT</p>
+                        <span>3358${array.policeNum}<span/>
+                    </div>
+                </div>
                 <div>
                     <p>Current Rating: ${array.rating}</p>
-                    <div>
+                    <div class="form">
                         <span>
                             <input type="text" id="input" min="0" max="10" /> / 10
                         </span>
@@ -91,7 +96,7 @@
         let usersMug = document.getElementById(`${user}`);
         if (!!usersMug) {
             usersMug.style.justifyContent = 'flex-start';
-            let submit = usersMug.childNodes[3];
+            let submit = usersMug.childNodes[5];
             submit.childNodes[3].style.display = 'none';
         }
 
@@ -115,7 +120,7 @@
             const div = document.getElementById(`${id}`);
             let input = div.getElementsByTagName('INPUT');
             if (input[0].value > 0 && input[0].value < 11) {
-                fetch(`https://localhost:8080/api/rate/${id}`, {
+                fetch(`https://local-app.azurewebsites.net/api/rate/${id}`, {
                     method: 'PUT',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ rating: parseInt(input[0].value) }),
